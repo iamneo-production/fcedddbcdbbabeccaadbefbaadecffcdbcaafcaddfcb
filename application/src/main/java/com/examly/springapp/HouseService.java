@@ -3,14 +3,13 @@ package com.examly.springapp;
 import java.util.List;
 
 public interface HouseService {
-    House saveHouse(House house);
+    void saveHouse(House house);
+
+    void updateHouseStatus(String houseId, String status);
+
+    void deleteHouse(String houseId);
 
     List<House> getAllHouses();
 
-    List<House> getByType(String houseType);
-
-    House getHouseById(Long id);
-
-    void deleteHouse(Long id);
+    House getHouseById(String houseId);
 }
-

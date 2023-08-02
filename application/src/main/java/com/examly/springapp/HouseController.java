@@ -1,6 +1,7 @@
 package com.examly.springapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,28 +17,32 @@ public class HouseController {
     }
 
     @PostMapping("/saveHouse")
-    public House saveHouse(@RequestBody House house) {
-        return houseService.saveHouse(house);
+    public ResponseEntity<House> saveHouse(@RequestBody House house) {
+        houseService.saveHouse(house);
+        return ResponseEntity.ok(house);
     }
 
     @GetMapping("/getAllHouse")
-    public List<House> getAllHouses() {
-        return houseService.getAllHouses();
+    public ResponseEntity<List<House>> getAllHouses() {
+        List<House> houses = houseService.getAllHouses();
+        return ResponseEntity.ok(houses);
     }
 
     @GetMapping("/getByType")
-    public List<House> getByType(@RequestParam("type") String houseType) {
-        return houseService.getByType(houseType);
+    public ResponseEntity<List<House>> getByType(@RequestParam("type") String houseType) {
+        List<House> houses = houseService.getByType(houseType);
+        return ResponseEntity.ok(houses);
     }
 
     @GetMapping("/getHouse")
-    public House getHouseById(@RequestParam("id") Long id) {
-        return houseService.getHouseById(id);
+    public ResponseEntity<House> getHouseById(@RequestParam("id") String houseId) {
+        House house = houseService.getHouseById(houseId);
+        return ResponseEntity.ok(house);
     }
 
     @GetMapping("/deleteHouse")
-    public void deleteHouse(@RequestParam("id") Long id) {
-        houseService.deleteHouse(id);
+    public ResponseEntity<Void> deleteHouse(@RequestParam("id") String houseId) {
+        houseService.deleteHouse(houseId);
+        return ResponseEntity.ok().build();
     }
 }
-

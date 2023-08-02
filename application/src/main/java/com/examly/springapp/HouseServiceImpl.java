@@ -3,7 +3,9 @@ package com.examly.springapp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HouseServiceImpl implements HouseService {
@@ -16,28 +18,39 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public House saveHouse(House house) {
-        return houseRepository.save(house);
+    public void saveHouse(House house) {
+        houseRepository.save(house);
+    }
+
+    @Override
+    public void updateHouseStatus(String houseId, String status) {
+        Optional<House> house = houseRepository.findById(houseId);
+        if (house.isPresent()) {
+            House h = house.get();
+            h.setStatus(status);
+            houseRepository.save(h);
+        }
+    }
+
+    @Override
+    public void deleteHouse(String houseId) {
+        houseRepository.deleteById(houseId);
     }
 
     @Override
     public List<House> getAllHouses() {
-        return houseRepository.findAll();
+        List<House> houses = new ArrayList<>();
+        houseRepository.findAll().forEach(houses::add);
+        return houses;
     }
 
     @Override
-    public List<House> getByType(String houseType) {
-        return houseRepository.findByType(houseType);
-    }
-
-    @Override
-    public House getHouseById(Long id) {
-        return houseRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public void deleteHouse(Long id) {
-        houseRepository.deleteById(id);
+    public House getHouseById(String houseId) {
+        Optional<House> house = houseRepository.findById(houseId);
+        if (house.isPresent()) {
+            return house.get();
+        } else {
+            throw new HouseNotFoundException("House not found with id: " + houseId);
+        }
     }
 }
-
