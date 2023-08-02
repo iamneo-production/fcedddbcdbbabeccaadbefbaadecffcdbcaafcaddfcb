@@ -1,4 +1,4 @@
-package com.examly;
+package com.examly.springapp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
