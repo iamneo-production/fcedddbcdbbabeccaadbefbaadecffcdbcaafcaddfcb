@@ -1,5 +1,6 @@
 package com.examly.springapp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
