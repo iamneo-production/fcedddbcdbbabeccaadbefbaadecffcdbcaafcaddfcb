@@ -1,1 +1,5 @@
+com/examly/springapp/HouseService.class
+com/examly/springapp/HouseServiceImpl.class
+com/examly/springapp/HouseRepository.class
 com/examly/springapp/SpringappApplication.class
+com/examly/springapp/House.class
