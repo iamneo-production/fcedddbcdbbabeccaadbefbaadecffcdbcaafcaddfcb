@@ -1,54 +1,48 @@
 package com.examly.springapp;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.examly.springapp.exception.ResourceNotFoundException;
-import com.examly.springapp.model.House;
-import com.examly.springapp.repository.HouseRepository;
+import java.util.List;
 
 @RestController
-@RequestMapping("/house")
 public class HouseController {
 
-    @Autowired
-    private HouseRepository houseRepository;
+    private final HouseService houseService;
 
-    @PostMapping("/saveHouse")
-    public House saveHouse(@RequestBody House house) {
-        return houseRepository.save(house);
+    @Autowired
+    public HouseController(HouseService houseService) {
+        this.houseService = houseService;
     }
 
-    @GetMapping("/getHouse")
-    public ResponseEntity<House> getHouseById(@RequestParam Long id) {
-        House house = houseRepository.findById(id)
-                .orElseThrow(() -> new HouseNotFoundException("House not found with id: " + id));
+    @PostMapping("/saveHouse")
+    public ResponseEntity<House> saveHouse(@RequestBody House house) {
+        houseService.saveHouse(house);
         return ResponseEntity.ok(house);
     }
 
     @GetMapping("/getAllHouse")
-    public List<House> getAllHouses() {
-        return houseRepository.findAll();
+    public ResponseEntity<List<House>> getAllHouses() {
+        List<House> houses = houseService.getAllHouses();
+        return ResponseEntity.ok(houses);
     }
 
     @GetMapping("/getByType")
-    public List<House> getHousesByType(@RequestParam String type) {
-        return houseRepository.findByType(type);
+    public ResponseEntity<List<House>> getByType(@RequestParam("type") String houseType) {
+        List<House> houses = houseService.getByType(houseType);
+        return ResponseEntity.ok(houses);
+    }
+
+    @GetMapping("/getHouse")
+    public ResponseEntity<House> getHouseById(@RequestParam("id") String houseId) {
+        House house = houseService.getHouseById(houseId);
+        return ResponseEntity.ok(house);
     }
 
     @GetMapping("/deleteHouse")
-    public String deleteHouseById(@RequestParam Long id) {
-        House house = houseRepository.findById(id)
-                .orElseThrow(() -> new HouseNotFoundException("House not found with id: " + id));
-        houseRepository.delete(house);
-        return "Deleted successfully";
+    public ResponseEntity<Void> deleteHouse(@RequestParam("id") String houseId) {
+        houseService.deleteHouse(houseId);
+        return ResponseEntity.ok().build();
     }
 }

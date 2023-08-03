@@ -1,9 +1,6 @@
 package com.examly.springapp;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-import com.examly.springapp.model.House;
-
-@Repository
-public interface HouseRepository extends JpaRepository<House, Long> {}
+public interface HouseRepository extends CrudRepository<House, String> {
+}
