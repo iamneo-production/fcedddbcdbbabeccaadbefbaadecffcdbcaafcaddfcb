@@ -1,5 +1,4 @@
-// HouseController.java
-package com.examly;
+package com.examly.springapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

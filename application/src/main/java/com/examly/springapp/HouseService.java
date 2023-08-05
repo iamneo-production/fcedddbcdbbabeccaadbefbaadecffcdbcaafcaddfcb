@@ -1,4 +1,3 @@
-// HouseService.java
 package com.examly.springapp;
 
 import org.springframework.beans.factory.annotation.Autowired;

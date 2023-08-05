@@ -1,4 +1,3 @@
-// House.java
 package com.examly.springapp;
 
 import javax.persistence.Entity;
