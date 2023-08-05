@@ -1,3 +1,4 @@
+// House.java
 package com.examly.springapp;
 
 import javax.persistence.Entity;
@@ -5,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="House")
+@Table(name = "Houses")
 public class House {
 
     @Id
@@ -23,8 +24,6 @@ public class House {
         this.status = status;
         this.type = type;
     }
-
-    // Getters and Setters
 
     public String getHouseId() {
         return houseId;
